@@ -2,7 +2,7 @@ name: flutter_widget_collection
 description: A Flutter package save everything widget favorite.
 version: 0.0.1
 author: MinhMinh<minhminh9201@gmail.com>
-homepage:
+homepage: https://github.com/lqminhlab/flutter_widget_collection
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
