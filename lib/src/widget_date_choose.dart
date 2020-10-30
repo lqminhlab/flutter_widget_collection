@@ -47,6 +47,14 @@ class _WidgetDateChooseState extends State<WidgetDateChoose> {
       color: isSelected ? Color.fromRGBO(40, 40, 40, 1) : Colors.grey);
 
   @override
+  void dispose() {
+    widget.controller.dayController.dispose();
+    widget.controller.monthController.dispose();
+    widget.controller.yearController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
@@ -233,9 +241,6 @@ class DateChooseController extends ChangeNotifier {
   @override
   void dispose() {
     _streamController.close();
-    dayController.dispose();
-    monthController.dispose();
-    yearController.dispose();
     super.dispose();
   }
 }
