@@ -47,12 +47,6 @@ class _WidgetDateChooseState extends State<WidgetDateChoose> {
       color: isSelected ? Color.fromRGBO(40, 40, 40, 1) : Colors.grey);
 
   @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: widget.height,
@@ -167,7 +161,6 @@ class DateChooseController extends ChangeNotifier {
     days = List.generate(
         DateUtil.daysInMonth(1, start.year), (index) => index + 1);
     _streamController.add(DateWithLeap(date: initDate));
-    animateTo(initDate);
     yearController.addListener(() {
       _onChanged();
     });
@@ -176,6 +169,9 @@ class DateChooseController extends ChangeNotifier {
     });
     dayController.addListener(() {
       _onChanged(isDay: true);
+    });
+    Future.delayed(Duration(milliseconds: 750), (){
+      animateTo(initDate);
     });
   }
 
@@ -206,9 +202,6 @@ class DateChooseController extends ChangeNotifier {
         months = List.generate(12, (index) => index + 1);
       }
       days = List.generate(leapDays, (index) => index + 1);
-      print("Year: ${date.year}");
-      print("leapDays: $leapDays");
-      print("leapMonth: $leapMonth");
     } else {
       date = DateTime(start.year + yearController.selectedItem,
           monthController.selectedItem + 1, dayController.selectedItem + 1);
