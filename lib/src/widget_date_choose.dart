@@ -178,9 +178,10 @@ class DateChooseController extends ChangeNotifier {
     dayController.addListener(() {
       _onChanged(isDay: true);
     });
-    Future.delayed(Duration(milliseconds: 750), (){
-      animateTo(initDate);
-    });
+    if (initDate != null)
+      Future.delayed(Duration(milliseconds: 750), () {
+        animateTo(initDate);
+      });
   }
 
   _animateToItem(int index, FixedExtentScrollController controller) {
