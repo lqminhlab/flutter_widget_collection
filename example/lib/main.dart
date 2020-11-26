@@ -26,38 +26,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TimeChooseController timeChooseController;
-
-  @override
-  void initState() {
-    super.initState();
-    timeChooseController = TimeChooseController();
-    timeChooseController.watchChanged.listen((event) {
-      print("Changed: $event");
-    });
-  }
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Widget collection"),
-      ),
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Container(
       child: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 2 / 3,
-          height: MediaQuery.of(context).size.width,
-          child: WidgetTimeChoose(
-              height: MediaQuery.of(context).size.width,
-              controller: timeChooseController),
-        ),
-      ),
+          child: WidgetPageGesture(
+              toLeftEnd: () => setState(() => index--),
+              toRightEnd: () => setState(() => index++),
+              toBottomEnd: () => setState(() => index += 10),
+              toTopEnd: () => setState(() => index -= 10),
+              width: width,
+              height: height,
+              child: Container(
+                width: width,
+                height: height,
+                color: Colors.greenAccent,
+                child: Center(
+                  child: Text(
+                    "$index",
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ))),
     );
   }
 }
