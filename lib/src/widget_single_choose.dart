@@ -61,11 +61,11 @@ class _WidgetSingleChooseState extends State<WidgetSingleChoose> {
         ListWheelScrollView.useDelegate(
           itemExtent: widget.itemExtent,
           onSelectedItemChanged: (index) {
+            if (widget.onSelectedItemChanged != null)
+              widget.onSelectedItemChanged(index, widget.list[index]);
             setState(() {
               currentPosition = index;
             });
-            if (widget.onSelectedItemChanged != null)
-              widget.onSelectedItemChanged(index, widget.list[index]);
           },
           controller: widget.controller,
           physics: FixedExtentScrollPhysics(),
